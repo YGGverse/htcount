@@ -1,4 +1,4 @@
-pub fn info(message: String) {
+pub fn info(message: &str) {
     println!("[{}] [info] {message}", now())
 }
 

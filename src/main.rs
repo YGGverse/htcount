@@ -15,6 +15,10 @@ fn main() -> anyhow::Result<()> {
         argument::Argument::parse()
     };
 
+    let match_time = argument
+        .match_time
+        .map(|ref t| chrono::Local::now().format(t).to_string());
+
     // parse some arguments once
     let is_debug_i = argument.debug.contains("i");
     let is_debug_d = argument.debug.contains("d");
@@ -24,12 +28,12 @@ fn main() -> anyhow::Result<()> {
     }
 
     if is_debug_i {
-        debug::info("Crawler started".into());
+        debug::info("Crawler started");
     }
 
     loop {
         if is_debug_i {
-            debug::info("Index queue begin...".into());
+            debug::info("Index queue begin...");
         }
 
         let file = File::open(&argument.source)?;
@@ -38,7 +42,18 @@ fn main() -> anyhow::Result<()> {
         let mut index: HashMap<String, usize> = HashMap::with_capacity(argument.capacity);
 
         'l: for line in reader.lines() {
-            let host = line?
+            let l = line?;
+
+            if let Some(ref t) = match_time {
+                if !l.contains(t) {
+                    if is_debug_d {
+                        debug::info(&format!("Record time mismatch time filter {t}"))
+                    }
+                    continue;
+                }
+            }
+
+            let host = l
                 .split_whitespace()
                 .next()
                 .map(|s| s.into())
@@ -47,7 +62,7 @@ fn main() -> anyhow::Result<()> {
             for h in &argument.ignore_host {
                 if h == &host {
                     if is_debug_d {
-                        debug::info(format!("Host `{h}` ignored by settings"))
+                        debug::info(&format!("Host `{h}` ignored by settings"))
                     }
                     continue 'l;
                 }
@@ -60,7 +75,7 @@ fn main() -> anyhow::Result<()> {
         let hits: usize = index.values().sum();
 
         if is_debug_i {
-            debug::info(format!(
+            debug::info(&format!(
                 "Index queue completed:\n{}\n\thosts: {} / hits: {}, await {} seconds to continue...",
                 if is_debug_d {
                     let mut b = Vec::with_capacity(hosts);

@@ -50,18 +50,21 @@ htcount --source      /var/log/nginx/access.log\
 
         [default: nginx]
 
-    --export-json <EXPORT_JSON>
+--export-json <EXPORT_JSON>
         Export results to JSON file (e.g. `/path/to/stats.json`)
 
-    --export-svg <EXPORT_SVG>
+--export-svg <EXPORT_SVG>
         Export results to SVG file (e.g. `/path/to/badge.svg`)
 
         * use `{hits}` / `{hosts}` pattern to replace parsed values
 
-    --template-svg <TEMPLATE_SVG>
+--template-svg <TEMPLATE_SVG>
         Use custom SVG file template with `{hits}` / `{hosts}` placeholders
 
         [default: default/counter.svg]
+
+-m, --match-time <MATCH_TIME>
+        Filter records match time pattern (e.g. `%d/%b/%Y`)
 
 -c, --capacity <CAPACITY>
         Expected memory index capacity
@@ -86,7 +89,6 @@ htcount --source      /var/log/nginx/access.log\
         Print version
 ```
 
-
 ### systemd
 
 ``` /etc/systemd/system/htcount.service
@@ -101,8 +103,9 @@ Type=simple
 ExecStart=/usr/local/bin/htcount --source /var/log/nginx/access.log\
                                  --export-svg /var/www/htcount/visitors.svg\
                                  --template-svg /path/to/default/template.svg\
-                                 --ignore-host 127.0.0.1
-                                 --ignore-host 127.0.0.2
+                                 --ignore-host 127.0.0.1\
+                                 --ignore-host 127.0.0.2\
+                                 --match-time %d/%b/%Y\
                                  --update 3600\
                                  --debug n
 StandardOutput=null
@@ -114,6 +117,7 @@ WantedBy=multi-user.target
 * make sure `/var/www/htcount` exists
 * replace `/path/to/default/template.svg` with your value
 * use `ignore-host` to skip local host requests
+* `match-time %d/%b/%Y` today records only
 
 * `systemctl daemon-reload` - update configuration
 * `systemctl enable` - launch on system startup

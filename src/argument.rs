@@ -30,6 +30,10 @@ pub struct Argument {
     #[arg(long, default_value_t = String::from("default/counter.svg"))]
     pub template_svg: String,
 
+    /// Filter records match time pattern (e.g. `%d/%b/%Y`)
+    #[arg(short, long)]
+    pub match_time: Option<String>,
+
     /// Expected memory index capacity
     #[arg(short, long, default_value_t = 100)]
     pub capacity: usize,
