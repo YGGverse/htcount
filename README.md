@@ -114,7 +114,7 @@ StandardError=null
 [Install]
 WantedBy=multi-user.target
 ```
-* make sure `/var/www/htcount` exists
+* make sure `/var/www/htcount` directory exists
 * replace `/path/to/default/template.svg` with your value
 * use `ignore-host` to skip local host requests
 * to filter today-only records, use `match-time` argument `%d/%b/%Y`
