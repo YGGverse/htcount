@@ -105,7 +105,7 @@ ExecStart=/usr/local/bin/htcount --source /var/log/nginx/access.log\
                                  --template-svg /path/to/default/template.svg\
                                  --ignore-host 127.0.0.1\
                                  --ignore-host 127.0.0.2\
-                                 --match-time %d/%b/%Y\
+                                 --match-time %%d/%%b/%%Y\
                                  --update 3600\
                                  --debug n
 StandardOutput=null
@@ -117,7 +117,10 @@ WantedBy=multi-user.target
 * make sure `/var/www/htcount` exists
 * replace `/path/to/default/template.svg` with your value
 * use `ignore-host` to skip local host requests
-* `match-time %d/%b/%Y` today records only
+* to filter today-only records, use `match-time` argument `%d/%b/%Y`
+    * make sure the log time pattern is escaped to ``%%d/%%b/%%Y``!
+
+### Service management tips
 
 * `systemctl daemon-reload` - update configuration
 * `systemctl enable` - launch on system startup
