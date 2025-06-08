@@ -1,6 +1,6 @@
 [package]
 name = "htcount"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2024"
 license = "MIT"
 readme = "README.md"
@@ -12,5 +12,5 @@ repository = "https://github.com/YGGverse/htcount"
 
 [dependencies]
 anyhow = "1.0"
-chrono = "0.4"
+chrono = "^0.4.20"
 clap = { version = "4.5", features = ["derive"] }
