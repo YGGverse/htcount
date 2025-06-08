@@ -5,7 +5,7 @@
 [![crates.io](https://img.shields.io/crates/v/htcount.svg)](https://crates.io/crates/htcount)
 
 Simple CLI/daemon tool for counting visitors using `access.log`\
-Export totals in multiple formats, such as JSON or SVG badge!
+Export totals in multiple formats, such as JSON or SVG [badge](https://raw.githubusercontent.com/YGGverse/htcount/refs/heads/main/default/counter.svg)!
 
 ## Features
 
