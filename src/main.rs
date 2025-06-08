@@ -1,0 +1,94 @@
+mod argument;
+mod debug;
+
+fn main() -> anyhow::Result<()> {
+    use std::{
+        collections::HashMap,
+        fs::File,
+        io::{BufRead, BufReader, Write},
+        thread,
+        time::Duration,
+    };
+
+    let argument = {
+        use clap::Parser;
+        argument::Argument::parse()
+    };
+
+    // calculate debug level once
+    let is_debug_i = argument.debug.contains("i");
+    let is_debug_d = argument.debug.contains("d");
+
+    if !matches!(argument.format.to_lowercase().as_str(), "nginx") {
+        todo!("Format `{}` yet not supported!", argument.format)
+    }
+
+    if is_debug_i {
+        debug::info("Crawler started".into());
+    }
+
+    loop {
+        if is_debug_i {
+            debug::info("Index queue begin...".into());
+        }
+
+        let file = File::open(&argument.source)?;
+        let reader = BufReader::new(file);
+
+        let mut index: HashMap<String, usize> = HashMap::with_capacity(argument.capacity);
+
+        for line in reader.lines() {
+            let host = line?
+                .split_whitespace()
+                .next()
+                .map(|s| s.into())
+                .unwrap_or_default();
+
+            if argument.ignore_host.contains(&host) {
+                if is_debug_d {
+                    debug::info(format!("Host `{host}` ignored by settings"))
+                }
+                continue;
+            }
+            index.entry(host).and_modify(|c| *c += 1).or_insert(1);
+        }
+
+        let hosts = index.len();
+        let hits: usize = index.values().sum();
+
+        if is_debug_i {
+            debug::info(format!(
+                "Index queue completed:\n{}\n\thosts: {} / hits: {}, await {} seconds to continue...",
+                if is_debug_d {
+                    let mut b = Vec::with_capacity(hosts);
+                    for (host, count) in &index {
+                        b.push(format!("\t{} ({})", host, count))
+                    }
+                    b.join("\n")
+                } else {
+                    "".into()
+                },
+                hosts,
+                hits,
+                argument.update,
+            ));
+        }
+
+        if let Some(ref p) = argument.export_json {
+            let mut f = File::create(p)?;
+            f.write_all(format!("{{\"hosts\":{hosts},\"hits\":{hits}}}").as_bytes())?;
+        }
+
+        if let Some(ref p) = argument.export_svg {
+            let t = std::fs::read_to_string(&argument.template_svg)?;
+            let mut f = File::create(p)?;
+            f.write_all(
+                t.replace("{hosts}", &hosts.to_string())
+                    .replace("{hits}", &hits.to_string())
+                    .as_bytes(),
+            )?;
+        }
+
+        thread::sleep(Duration::from_secs(argument.update));
+    }
+}

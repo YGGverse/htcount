@@ -1,0 +1,8 @@
+<svg width="88" height="31" xmlns="http://www.w3.org/2000/svg">
+  <text x="8" y="12" font-family="monospace" font-size="10" fill="#000">
+    hosts: {hosts}
+  </text>
+  <text x="8" y="28" font-family="monospace" font-size="10" fill="#000">
+    hits: {hits}
+  </text>
+</svg>

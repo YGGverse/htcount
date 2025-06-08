@@ -1,0 +1,15 @@
+[package]
+name = "htcount"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+readme = "README.md"
+description = "Simple CLI/daemon tool for counting visitors using access.log and exporting totals in multiple formats, such as JSON or SVG badge"
+keywords = ["access", "log", "counter", "badge", "stats"]
+categories = ["network-programming"]
+repository = "https://github.com/YGGverse/htcount"
+# homepage = "https://yggverse.github.io"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.5", features = ["derive"] }
