@@ -15,7 +15,7 @@ fn main() -> anyhow::Result<()> {
         argument::Argument::parse()
     };
 
-    // calculate debug level once
+    // parse some arguments once
     let is_debug_i = argument.debug.contains("i");
     let is_debug_d = argument.debug.contains("d");
 
