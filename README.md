@@ -85,3 +85,34 @@ htcount --source      /var/log/nginx/access.log\
 -V, --version
         Print version
 ```
+
+
+### systemd
+
+``` /etc/systemd/system/htcount.service
+#/etc/systemd/system/htcount.service
+
+[Unit]
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/htcount --source /var/log/nginx/access.log\
+                                 --export-svg /var/www/htcount/visitors.svg\
+                                 --template-svg /path/to/default/template.svg\
+                                 --update 3600\
+                                 --debug n
+StandardOutput=null
+StandardError=null
+
+[Install]
+WantedBy=multi-user.target
+```
+* make sure `/var/www/htcount` exists
+* replace `/path/to/default/template.svg` with your value
+
+* `systemctl daemon-reload` - update configuration
+* `systemctl enable` - launch on system startup
+* `systemctl restart htcount` - start systemd service
+* `systemctl status htcount` - check if service is running
