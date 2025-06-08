@@ -118,6 +118,7 @@ WantedBy=multi-user.target
 * replace `/path/to/default/template.svg` with your value
 * use `ignore-host` to skip local host requests
 * to filter today-only records, use `match-time` argument `%d/%b/%Y`
+    * to filter this month-only records use `%b/%Y`
     * make sure the log time pattern is escaped to ``%%d/%%b/%%Y``!
 
 ### Service management tips
