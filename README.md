@@ -116,3 +116,7 @@ WantedBy=multi-user.target
 * `systemctl enable` - launch on system startup
 * `systemctl restart htcount` - start systemd service
 * `systemctl status htcount` - check if service is running
+
+## Live examples
+
+* `http://[302:68d0:f0d5:b88d::fed]` - [Snac](https://codeberg.org/grunfink/snac2) instance for the [Yggdrasil](https://yggdrasil-network.github.io/) network
