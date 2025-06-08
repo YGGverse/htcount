@@ -37,19 +37,22 @@ fn main() -> anyhow::Result<()> {
 
         let mut index: HashMap<String, usize> = HashMap::with_capacity(argument.capacity);
 
-        for line in reader.lines() {
+        'l: for line in reader.lines() {
             let host = line?
                 .split_whitespace()
                 .next()
                 .map(|s| s.into())
                 .unwrap_or_default();
 
-            if argument.ignore_host.contains(&host) {
-                if is_debug_d {
-                    debug::info(format!("Host `{host}` ignored by settings"))
+            for h in &argument.ignore_host {
+                if h == &host {
+                    if is_debug_d {
+                        debug::info(format!("Host `{h}` ignored by settings"))
+                    }
+                    continue 'l;
                 }
-                continue;
             }
+
             index.entry(host).and_modify(|c| *c += 1).or_insert(1);
         }
 
