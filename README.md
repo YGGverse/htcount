@@ -4,7 +4,9 @@
 [![Dependencies](https://deps.rs/repo/github/YGGverse/htcount/status.svg)](https://deps.rs/repo/github/YGGverse/htcount)
 [![crates.io](https://img.shields.io/crates/v/htcount.svg)](https://crates.io/crates/htcount)
 
-Simple CLI/daemon tool for counting visitors using `access.log` and exporting totals in multiple formats, such as JSON or SVG badge
+Simple CLI/daemon tool for counting visitors using `access.log`
+
+Export totals in multiple formats, such as JSON or SVG badge!
 
 ## Features
 
