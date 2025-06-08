@@ -119,7 +119,7 @@ WantedBy=multi-user.target
 * use `ignore-host` to skip local host requests
 * to filter today-only records, use `match-time` argument `%d/%b/%Y`
     * to filter this month-only records use `%b/%Y`
-    * make sure the log time pattern is escaped to ``%%d/%%b/%%Y``!
+    * make sure the log time pattern `%` is escaped to `%%`!
 
 ### Service management tips
 
