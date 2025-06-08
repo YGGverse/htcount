@@ -101,6 +101,8 @@ Type=simple
 ExecStart=/usr/local/bin/htcount --source /var/log/nginx/access.log\
                                  --export-svg /var/www/htcount/visitors.svg\
                                  --template-svg /path/to/default/template.svg\
+                                 --ignore-host 127.0.0.1
+                                 --ignore-host 127.0.0.2
                                  --update 3600\
                                  --debug n
 StandardOutput=null
@@ -111,6 +113,7 @@ WantedBy=multi-user.target
 ```
 * make sure `/var/www/htcount` exists
 * replace `/path/to/default/template.svg` with your value
+* use `ignore-host` to skip local host requests
 
 * `systemctl daemon-reload` - update configuration
 * `systemctl enable` - launch on system startup
