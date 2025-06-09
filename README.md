@@ -12,7 +12,7 @@ Export totals in multiple formats, such as JSON or SVG badge!
 ### Export formats
 
 * [x] JSON - for API usage
-* [x] SVG - configurable badge button (or [default](https://github.com/YGGverse/htcount/tree/main/default))
+* [x] SVG - configurable or [default](https://github.com/YGGverse/htcount/tree/main/default) badge button
 
 ## Install
 
