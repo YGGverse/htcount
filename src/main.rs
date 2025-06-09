@@ -19,10 +19,6 @@ fn main() -> anyhow::Result<()> {
     let is_debug_i = argument.debug.contains("i");
     let is_debug_d = argument.debug.contains("d");
 
-    if !matches!(argument.format.to_lowercase().as_str(), "nginx") {
-        todo!("Format `{}` yet not supported!", argument.format)
-    }
-
     if is_debug_i {
         debug::info("Crawler started");
     }

@@ -4,15 +4,10 @@
 [![Dependencies](https://deps.rs/repo/github/YGGverse/htcount/status.svg)](https://deps.rs/repo/github/YGGverse/htcount)
 [![crates.io](https://img.shields.io/crates/v/htcount.svg)](https://crates.io/crates/htcount)
 
-Simple CLI/daemon tool for counting visitors using `access.log`\
+Simple CLI/daemon tool for counting visitors using `access.log` in the [Common Log Format](https://en.wikipedia.org/wiki/Common_Log_Format)\
 Export totals in multiple formats, such as JSON or SVG [badge](https://github.com/YGGverse/htcount/tree/main/default)!
 
 ## Features
-
-### Log format support
-
-* [x] Nginx
-* [ ] Apache
 
 ### Export formats
 
@@ -43,13 +38,6 @@ htcount --source       /var/log/nginx/access.log\
         * `i` - info * `d` - detailed
 
         [default: i]
-
--f, --format <FORMAT>
-        Log format for given `source`
-
-        * `nginx`
-
-        [default: nginx]
 
 --target-json <TARGET_JSON>
         Export results to JSON file (e.g. `/path/to/stats.json`)

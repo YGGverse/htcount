@@ -10,12 +10,6 @@ pub struct Argument {
     #[arg(short, long, default_value_t = String::from("i"))]
     pub debug: String,
 
-    /// Log format for given `source`
-    ///
-    /// * `nginx`
-    #[arg(short, long, default_value_t = String::from("nginx"))]
-    pub format: String,
-
     /// Export results to JSON file (e.g. `/path/to/stats.json`)
     #[arg(long)]
     pub target_json: Option<String>,
