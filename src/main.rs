@@ -39,11 +39,11 @@ fn main() -> anyhow::Result<()> {
 
         let mut index: HashMap<String, usize> = HashMap::with_capacity(argument.capacity);
 
-        'l: for line in BufReader::new(File::open(&argument.source)?).lines() {
-            let l = line?;
+        'l: for l in BufReader::new(File::open(&argument.source)?).lines() {
+            let line = l?;
 
             if let Some(ref t) = now {
-                if !l.contains(t) {
+                if !line.contains(t) {
                     if is_debug_d {
                         debug::info(&format!("Record time mismatch time filter {t}"))
                     }
@@ -51,7 +51,7 @@ fn main() -> anyhow::Result<()> {
                 }
             }
 
-            let host = l
+            let host = line
                 .split_whitespace()
                 .next()
                 .map(|s| s.into())
