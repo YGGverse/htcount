@@ -32,13 +32,18 @@ fn main() -> anyhow::Result<()> {
             debug::info("Index queue begin...");
         }
 
+        let now = argument
+            .match_time
+            .as_ref()
+            .map(|t| chrono::Local::now().format(t).to_string());
+
         let mut index: HashMap<String, usize> = HashMap::with_capacity(argument.capacity);
 
         'l: for line in BufReader::new(File::open(&argument.source)?).lines() {
             let l = line?;
 
-            if let Some(ref t) = argument.match_time {
-                if !l.contains(&chrono::Local::now().format(t).to_string()) {
+            if let Some(ref t) = now {
+                if !l.contains(t) {
                     if is_debug_d {
                         debug::info(&format!("Record time mismatch time filter {t}"))
                     }
