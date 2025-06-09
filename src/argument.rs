@@ -18,13 +18,13 @@ pub struct Argument {
 
     /// Export results to JSON file (e.g. `/path/to/stats.json`)
     #[arg(long)]
-    pub export_json: Option<String>,
+    pub target_json: Option<String>,
 
     /// Export results to SVG file (e.g. `/path/to/badge.svg`)
     ///
     /// * use `{hits}` / `{hosts}` pattern to replace parsed values
     #[arg(long)]
-    pub export_svg: Option<String>,
+    pub target_svg: Option<String>,
 
     /// Use custom SVG file template with `{hits}` / `{hosts}` placeholders
     #[arg(long, default_value_t = String::from("default/counter.svg"))]

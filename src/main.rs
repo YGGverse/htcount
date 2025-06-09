@@ -90,12 +90,12 @@ fn main() -> anyhow::Result<()> {
             ));
         }
 
-        if let Some(ref p) = argument.export_json {
+        if let Some(ref p) = argument.target_json {
             let mut f = File::create(p)?;
             f.write_all(format!("{{\"hosts\":{hosts},\"hits\":{hits}}}").as_bytes())?;
         }
 
-        if let Some(ref p) = argument.export_svg {
+        if let Some(ref p) = argument.target_svg {
             let t = std::fs::read_to_string(&argument.template_svg)?;
             let mut f = File::create(p)?;
             f.write_all(

@@ -28,10 +28,11 @@ Export totals in multiple formats, such as JSON or SVG [badge](https://github.co
 ## Usage
 
 ``` bash
-htcount --source      /var/log/nginx/access.log\
-        --export-json /path/to/totals.json\
-        --export-svg  /path/to/totals.svg
+htcount --source       /var/log/nginx/access.log\
+        --target-svg   /path/to/badge.svg\
+        --template-svg /path/to/counter/template.svg
 ```
+* see `default/counter.svg`
 
 ### Options
 
@@ -50,10 +51,10 @@ htcount --source      /var/log/nginx/access.log\
 
         [default: nginx]
 
---export-json <EXPORT_JSON>
+--target-json <TARGET_JSON>
         Export results to JSON file (e.g. `/path/to/stats.json`)
 
---export-svg <EXPORT_SVG>
+--target-svg <TARGET_SVG>
         Export results to SVG file (e.g. `/path/to/badge.svg`)
 
         * use `{hits}` / `{hosts}` pattern to replace parsed values
@@ -101,7 +102,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 ExecStart=/usr/local/bin/htcount --source /var/log/nginx/access.log\
-                                 --export-svg /var/www/htcount/visitors.svg\
+                                 --target-svg /var/www/htcount/visitors.svg\
                                  --template-svg /path/to/default/template.svg\
                                  --ignore-host 127.0.0.1\
                                  --ignore-host 127.0.0.2\
