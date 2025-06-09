@@ -15,10 +15,6 @@ fn main() -> anyhow::Result<()> {
         argument::Argument::parse()
     };
 
-    let match_time = argument
-        .match_time
-        .map(|ref t| chrono::Local::now().format(t).to_string());
-
     // parse some arguments once
     let is_debug_i = argument.debug.contains("i");
     let is_debug_d = argument.debug.contains("d");
@@ -41,8 +37,8 @@ fn main() -> anyhow::Result<()> {
         'l: for line in BufReader::new(File::open(&argument.source)?).lines() {
             let l = line?;
 
-            if let Some(ref t) = match_time {
-                if !l.contains(t) {
+            if let Some(ref t) = argument.match_time {
+                if !l.contains(&chrono::Local::now().format(t).to_string()) {
                     if is_debug_d {
                         debug::info(&format!("Record time mismatch time filter {t}"))
                     }
