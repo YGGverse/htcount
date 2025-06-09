@@ -66,7 +66,7 @@ htcount --source      /var/log/nginx/access.log\
 -m, --match-time <MATCH_TIME>
         Filter records match time pattern (e.g. `%d/%b/%Y`)
 
--c, --capacity <CAPACITY>
+-c, --index-capacity <CAPACITY>
         Expected memory index capacity
 
         [default: 100]

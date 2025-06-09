@@ -37,7 +37,7 @@ fn main() -> anyhow::Result<()> {
             .as_ref()
             .map(|t| chrono::Local::now().format(t).to_string());
 
-        let mut index: HashMap<String, usize> = HashMap::with_capacity(argument.capacity);
+        let mut index: HashMap<String, usize> = HashMap::with_capacity(argument.index_capacity);
 
         'l: for l in BufReader::new(File::open(&argument.source)?).lines() {
             let line = l?;

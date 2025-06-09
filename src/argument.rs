@@ -36,7 +36,7 @@ pub struct Argument {
 
     /// Expected memory index capacity
     #[arg(short, long, default_value_t = 100)]
-    pub capacity: usize,
+    pub index_capacity: usize,
 
     /// Exclude host(s) from index
     #[arg(short, long)]
