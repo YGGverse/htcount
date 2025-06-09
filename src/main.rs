@@ -36,12 +36,9 @@ fn main() -> anyhow::Result<()> {
             debug::info("Index queue begin...");
         }
 
-        let file = File::open(&argument.source)?;
-        let reader = BufReader::new(file);
-
         let mut index: HashMap<String, usize> = HashMap::with_capacity(argument.capacity);
 
-        'l: for line in reader.lines() {
+        'l: for line in BufReader::new(File::open(&argument.source)?).lines() {
             let l = line?;
 
             if let Some(ref t) = match_time {
